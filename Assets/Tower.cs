@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tower : MonoBehaviour {
 	Transform turretTransform;
 	float range = 25f;
-	public float damage = 1f;
 	public GameObject bulletPref;
 	// Use this for initialization
 	float attackSpeed = 0.2f;

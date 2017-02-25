@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour {
 
 	}
 	void BulletHit() {
-		gameObject.GetComponent<Enemy>().health -= 1;
+		target.GetComponent<Enemy>().TakeDamage(damage);
 		Destroy(this.gameObject);
 	}
 }

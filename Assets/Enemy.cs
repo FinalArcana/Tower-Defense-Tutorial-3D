@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour {
 	GameObject path;
 	Transform targetPathNode;
 	int pathNodeIndex = 0;
+
+	public int moneyValue = 1;
 	// Use this for initialization
 	void Start () {
 		path = GameObject.Find("Path");
@@ -38,6 +40,18 @@ public class Enemy : MonoBehaviour {
 
 	}
 	void ReachedFinalNode() {
+		GameObject.FindObjectOfType<ScoreBoard>().LoseLife();
 		Destroy(this.gameObject);
+	}
+
+	public void TakeDamage(float damage) {
+		health -= damage;
+		if(health <= 0) {
+			Die();
+		}
+	}
+	public void Die() {
+		GameObject.FindObjectOfType<ScoreBoard>().money += moneyValue;
+		Destroy(gameObject);
 	}
 }
