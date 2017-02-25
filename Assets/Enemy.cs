@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-	float speed = 15f;
+	public float speed = 15f;
 	public float health = 10f;
 	GameObject path;
 	Transform targetPathNode;
@@ -15,8 +15,14 @@ public class Enemy : MonoBehaviour {
 		path = GameObject.Find("Path");
 	}
 	void GetNextPathNode() {
-		targetPathNode = path.transform.GetChild(pathNodeIndex);
-		pathNodeIndex++;
+		if(pathNodeIndex < path.transform.childCount) {
+			targetPathNode = path.transform.GetChild(pathNodeIndex);
+			pathNodeIndex++;
+		}
+		else {
+			ReachedFinalNode();
+			targetPathNode = null;
+		}
 	}
 	
 	// Update is called once per frame
@@ -24,7 +30,7 @@ public class Enemy : MonoBehaviour {
 		if(targetPathNode == null) {
 			GetNextPathNode();
 			if(targetPathNode == null) {
-				ReachedFinalNode();
+				return;
 			}
 		}
 		Vector3 dir = targetPathNode.position - this.transform.localPosition;
