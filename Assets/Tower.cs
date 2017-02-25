@@ -6,9 +6,11 @@ public class Tower : MonoBehaviour {
 	Transform turretTransform;
 	float range = 25f;
 	public GameObject bulletPref;
-	// Use this for initialization
 	float attackSpeed = 0.2f;
 	float attackSpeedLeft = 0;
+	public int cost = 5;
+	public float damage = 1;
+	public float aoeRadius = 0;
 	void Start () {
 		
 		turretTransform = transform.Find("Turret");
@@ -49,8 +51,9 @@ public class Tower : MonoBehaviour {
 		GameObject bulletObj = (GameObject)Instantiate(bulletPref,this.transform.position, this.transform.rotation);
 		Bullet b = bulletObj.GetComponent<Bullet>();
 		b.target = e.transform;
-
-
+		b.damage = damage;
+		b.aoeRadius = aoeRadius;
+		
 
 	}
 }

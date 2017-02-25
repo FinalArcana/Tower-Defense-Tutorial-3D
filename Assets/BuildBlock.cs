@@ -11,6 +11,12 @@ public class BuildBlock : MonoBehaviour {
 		Debug.Log("Build!");
 		TowerManager tm = GameObject.FindObjectOfType<TowerManager>();
 		if(tm.selectedTower != null) {
+			ScoreBoard sb = GameObject.FindObjectOfType<ScoreBoard>();
+			if(sb.money < tm.selectedTower.GetComponent<Tower>().cost) {
+				Debug.Log("Not enough money!");
+				return;
+			}
+			sb.money -= tm.selectedTower.GetComponent<Tower>().cost;
 			Instantiate(tm.selectedTower, transform.position, transform.parent.rotation);
 			Destroy(transform.parent.gameObject);
 		}

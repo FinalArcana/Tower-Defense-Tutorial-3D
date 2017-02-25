@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 	public float speed = 60f;
  	public float damage = 1f;
-
+	public float aoeRadius = 0;
 	public Transform target;
 	// Use this for initialization
 	void Start () {
@@ -33,7 +33,18 @@ public class Bullet : MonoBehaviour {
 
 	}
 	void BulletHit() {
-		target.GetComponent<Enemy>().TakeDamage(damage);
+		if(aoeRadius == 0) {
+			target.GetComponent<Enemy>().TakeDamage(damage);
+		}
+		else {
+			Collider[] cols = Physics.OverlapSphere(transform.position, aoeRadius);
+			foreach(Collider c in cols) {
+				Enemy e = c.GetComponent<Enemy>();
+				if(e != null) {
+					e.GetComponent<Enemy>().TakeDamage(damage);
+				}
+			}
+		}
 		Destroy(this.gameObject);
 	}
 }
